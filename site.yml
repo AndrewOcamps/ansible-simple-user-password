@@ -1,0 +1,21 @@
+- name: Simple playbook to create user and assign password
+  hosts: example-lab
+  vars:
+    - password: '$1$ansible$wN4NS9qJaG63U37tn6Nfm0' 
+    - user: 'your_user'
+    - group: 'your_user'
+    - group_gid: '9999'
+    - line_in_passwd: 'your_user:x:42138:9999:Your User:/home/your_user:/bin/bash'
+  tasks:
+    - name: Ensure group {{ group }} exists
+      group:
+        name: '{{ user }}'
+        gid: '{{ group_gid }}'
+    - name: Add the user {{ user }} with a specific uid and a primary group of {{ group }}
+      lineinfile:
+        path: /etc/passwd
+        line: '{{ line_in_passwd }}'
+    - name: Change password for user {{ user }}
+      user:
+        name: '{{ user }}'
+        password: '{{ password }}'
