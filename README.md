@@ -1,4 +1,4 @@
-# simple-user-ansible-password
+# ansible-simple-user-password
 Simple playbook to create user and assign password
 
 To use it you must complete the variables listed in the site.yml file.
